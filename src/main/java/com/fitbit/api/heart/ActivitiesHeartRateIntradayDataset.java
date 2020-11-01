@@ -5,23 +5,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class HeartRateIntradayList {
+public class ActivitiesHeartRateIntradayDataset {
 
-    private final List<HeartRate> dataset;
+    private final List<ActivitiesHeartRate> dataset;
 
     private final int datasetInterval;
 
     private final String datasetType;
 
     @JsonCreator
-    public HeartRateIntradayList(@JsonProperty("dataset") List<HeartRate> dataset,
-                                 @JsonProperty("datasetInterval") int datasetInterval, @JsonProperty("datasetType") String datasetType) {
+    public ActivitiesHeartRateIntradayDataset(@JsonProperty("dataset") List<ActivitiesHeartRate> dataset,
+                                              @JsonProperty("datasetInterval") int datasetInterval, @JsonProperty("datasetType") String datasetType) {
         this.dataset = dataset;
         this.datasetInterval = datasetInterval;
         this.datasetType = datasetType;
     }
 
-    public List<HeartRate> getDataset() {
+    public List<ActivitiesHeartRate> getDataset() {
         return dataset;
     }
 
