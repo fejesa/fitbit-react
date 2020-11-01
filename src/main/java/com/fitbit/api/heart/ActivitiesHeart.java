@@ -7,10 +7,10 @@ public class ActivitiesHeart {
 
     private final String dateTime;
 
-    private final ActivitiesHeartRateValue value;
+    private final ActivitiesHeartRate value;
 
     @JsonCreator
-    public ActivitiesHeart(@JsonProperty("dateTime") String dateTime, @JsonProperty("value") ActivitiesHeartRateValue value) {
+    public ActivitiesHeart(@JsonProperty("dateTime") String dateTime, @JsonProperty("value") ActivitiesHeartRate value) {
         this.dateTime = dateTime;
         this.value = value;
     }
@@ -19,7 +19,7 @@ public class ActivitiesHeart {
         return dateTime;
     }
 
-    public ActivitiesHeartRateValue getValue() {
+    public ActivitiesHeartRate getValue() {
         return value;
     }
 }

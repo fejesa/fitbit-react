@@ -3,23 +3,34 @@ package com.fitbit.api.heart;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public class ActivitiesHeartRate {
 
-    private final String time;
+    private final List<HeartRateZone> customHeartRateZones;
 
-    private final int value;
+    private final List<HeartRateZone> heartRateZones;
+
+    private final int restingHeartRate;
 
     @JsonCreator
-    public ActivitiesHeartRate(@JsonProperty("time") String time, @JsonProperty("value") int value) {
-        this.time = time;
-        this.value = value;
+    public ActivitiesHeartRate(@JsonProperty("customHeartRateZones") List<HeartRateZone> customHeartRateZones,
+                               @JsonProperty("heartRateZones") List<HeartRateZone> heartRateZones,
+                               @JsonProperty("restingHeartRate") int restingHeartRate) {
+        this.customHeartRateZones = customHeartRateZones;
+        this.heartRateZones = heartRateZones;
+        this.restingHeartRate = restingHeartRate;
     }
 
-    public String getTime() {
-        return time;
+    public List<HeartRateZone> getCustomHeartRateZones() {
+        return customHeartRateZones;
     }
 
-    public int getValue() {
-        return value;
+    public List<HeartRateZone> getHeartRateZones() {
+        return heartRateZones;
+    }
+
+    public int getRestingHeartRate() {
+        return restingHeartRate;
     }
 }

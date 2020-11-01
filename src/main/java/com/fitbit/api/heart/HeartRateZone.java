@@ -16,8 +16,8 @@ public class HeartRateZone {
     private final String name;
 
     @JsonCreator
-    public HeartRateZone( @JsonProperty("caloriesOut") int caloriesOut, @JsonProperty("max") int max,
-                          @JsonProperty("min") int min, @JsonProperty("minutes") int minutes, @JsonProperty("name") String name) {
+    public HeartRateZone(@JsonProperty("caloriesOut") int caloriesOut, @JsonProperty("max") int max,
+                         @JsonProperty("min") int min, @JsonProperty("minutes") int minutes, @JsonProperty("name") String name) {
         this.caloriesOut = caloriesOut;
         this.max = max;
         this.min = min;

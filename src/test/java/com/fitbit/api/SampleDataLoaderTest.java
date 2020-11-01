@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitbit.api.device.Device;
-import com.fitbit.api.heart.ActivitiesHeartRateIntraday;
+import com.fitbit.api.heart.ActivitiesIntradayHeartList;
 import com.fitbit.api.heart.ActivitiesHeartList;
 import com.fitbit.api.profile.Profile;
 import org.junit.jupiter.api.Test;
@@ -49,7 +49,7 @@ public class SampleDataLoaderTest {
     @Test
     public void loadActivitiesHearRateIntradaytList() throws Exception {
         URL resource = SampleDataLoaderTest.class.getResource("/sample/heart-rate-intraday.json");
-        ActivitiesHeartRateIntraday heartList = new ObjectMapper().readValue(resource, ActivitiesHeartRateIntraday.class);
+        ActivitiesIntradayHeartList heartList = new ObjectMapper().readValue(resource, ActivitiesIntradayHeartList.class);
         assertNotNull(heartList);
         assertFalse(heartList.getActivitiesHeart().isEmpty());
         assertFalse(heartList.getActivitiesHeartRateIntradayDataset().getDataset().isEmpty());
