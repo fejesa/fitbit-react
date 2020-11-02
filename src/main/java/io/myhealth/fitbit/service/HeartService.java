@@ -1,5 +1,6 @@
 package io.myhealth.fitbit.service;
 
+import io.myhealth.fitbit.dao.FitbitIntradayHeartListRequest;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -12,13 +13,13 @@ public interface HeartService {
      * @param request Contains the period
      * @see io.myhealth.fitbit.dao.FitbitHeartListRequest
      */
-    Mono<ServerResponse> getHeartRateTimeSeries(ServerRequest request);
+    Mono<ServerResponse> getUserActivities(ServerRequest request);
 
     /**
      * Provides the full intraday time series data set in a given time period
      *
      * @param request Contains the time range and detail level.
-     * @see io.myhealth.fitbit.dao.FitbitHeartRateRequest
+     * @see FitbitIntradayHeartListRequest
      */
-    Mono<ServerResponse> getHeartRateIntradayTimeSeries(ServerRequest request);
+    Mono<ServerResponse> getUserIntradayActivities(ServerRequest request);
 }

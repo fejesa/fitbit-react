@@ -3,6 +3,7 @@ package io.myhealth.fitbit.dao;
 import com.fitbit.api.heart.ActivitiesHeartList;
 import com.fitbit.api.heart.ActivitiesIntradayHeartList;
 import io.myhealth.fitbit.api.FitbitException;
+import io.myhealth.fitbit.transform.DateTimeTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,9 +13,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.lang.invoke.MethodHandles;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 @Component
 public class FitbitMeasurementDao implements MeasurementDao {
@@ -30,7 +28,8 @@ public class FitbitMeasurementDao implements MeasurementDao {
         this.webClient = WebClient.create(uri);
     }
 
-    private Mono<ActivitiesHeartList> getActivitiesHeartList(FitbitHeartListRequest request) {
+    @Override
+    public Mono<ActivitiesHeartList> getActivitiesHeartList(FitbitHeartListRequest request) {
         return tokenDao.getAccessToken()
             .flatMap(rt -> webClient
                 .get()
@@ -44,7 +43,8 @@ public class FitbitMeasurementDao implements MeasurementDao {
                 .doOnError(e -> log.error("Error during the heart list fetch", e)));
     }
 
-    private Mono<ActivitiesIntradayHeartList> getActivitiesIntradayHeartRate(FitbitHeartRateRequest request) {
+    @Override
+    public Mono<ActivitiesIntradayHeartList> getActivitiesIntradayHeartList(FitbitIntradayHeartListRequest request) {
         return tokenDao.getAccessToken()
                 .flatMap(rt -> webClient
                         .get()
@@ -60,27 +60,20 @@ public class FitbitMeasurementDao implements MeasurementDao {
 
     private String buildHeartListUri(FitbitHeartListRequest request) {
         return "/user/-/activities/heart/date/" +
-                formatDate(request.getFrom()) +
+                DateTimeTransformer.fromDate(request.getFrom()) +
                 "/" +
-                formatDate(request.getTo()) +
+                DateTimeTransformer.fromDate(request.getTo()) +
                 ".json";
     }
 
-    private String buildIntradayHeartRateUri(FitbitHeartRateRequest request) {
-        return "/user/-/activities/heart/date/" + formatDate(request.getDate()) +
+    private String buildIntradayHeartRateUri(FitbitIntradayHeartListRequest request) {
+        return "/user/-/activities/heart/date/" + DateTimeTransformer.fromDate(request.getDate()) +
                 "/1d/" +
                 request.getDetailLevel() +
                 "/time/" +
-                formatTime(request.getStartTime()) +
+                DateTimeTransformer.formatTime(request.getStartTime()) +
                 "/" +
-                formatTime(request.getEndTime()) +
+                DateTimeTransformer.formatTime(request.getEndTime()) +
                 ".json";
     }
-
-    private String formatTime(LocalTime time) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-        return time.format(dtf);
-    }
-
-    private String formatDate(LocalDate date) {return date.format(DateTimeFormatter.ISO_DATE); }
 }

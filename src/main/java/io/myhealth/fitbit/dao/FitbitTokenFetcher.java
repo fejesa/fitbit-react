@@ -61,7 +61,7 @@ public class FitbitTokenFetcher implements TokenFetcher {
                         .map(t -> new ApplicationToken(t.getAccessToken(), t.getRefreshToken(), getExpirationTime(t.getExpiresIn())))
                         .subscribeOn(Schedulers.elastic())
                         .doOnSuccess(t -> log.info("Token successfully refreshed"))
-                        .doOnError(e -> e.printStackTrace())
+                        .doOnError(e -> log.error("Token fetch error", e))
                 );
 
         result.subscribe(this::writeToken);

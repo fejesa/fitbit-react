@@ -3,7 +3,7 @@ package io.myhealth.fitbit.dao;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class FitbitHeartRateRequest {
+public class FitbitIntradayHeartListRequest {
 
     /** The date, in the format yyyy-MM-dd or today.*/
     private final LocalDate date;
@@ -17,7 +17,7 @@ public class FitbitHeartRateRequest {
     /** The end of the period, in the format HH:mm. Optional. */
     private final LocalTime endTime;
 
-    public FitbitHeartRateRequest(LocalDate date, String detailLevel, LocalTime startTime, LocalTime endTime) {
+    public FitbitIntradayHeartListRequest(LocalDate date, String detailLevel, LocalTime startTime, LocalTime endTime) {
         this.date = date;
         this.detailLevel = detailLevel;
         this.startTime = startTime;
