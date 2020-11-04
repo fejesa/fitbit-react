@@ -37,4 +37,8 @@ public class Device {
     public String getType() {
         return type;
     }
+
+    public static Device empty() {
+        return new Device("", "unknown", "", "unknown");
+    }
 }

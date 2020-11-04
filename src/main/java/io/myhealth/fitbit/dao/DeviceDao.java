@@ -8,4 +8,6 @@ import java.util.List;
 public interface DeviceDao {
 
     Mono<List<Device>> getDeviceList();
+
+    Mono<Device> getDevice();
 }

@@ -7,8 +7,6 @@ import java.util.List;
 
 public class ActivitiesIntradayHeart {
 
-    private final List<HeartRateZone> customHeartRateZones;
-
     private final List<HeartRateZone> heartRateZones;
 
     private final String dateTime;
@@ -16,18 +14,12 @@ public class ActivitiesIntradayHeart {
     private final String value;
 
     @JsonCreator
-    public ActivitiesIntradayHeart(@JsonProperty("customHeartRateZones") List<HeartRateZone> customHeartRateZones,
-                                   @JsonProperty("heartRateZones") List<HeartRateZone> heartRateZones,
+    public ActivitiesIntradayHeart(@JsonProperty("heartRateZones") List<HeartRateZone> heartRateZones,
                                    @JsonProperty("dateTime") String dateTime,
                                    @JsonProperty("value") String value) {
-        this.customHeartRateZones = customHeartRateZones;
         this.heartRateZones = heartRateZones;
         this.dateTime = dateTime;
         this.value = value;
-    }
-
-    public List<HeartRateZone> getCustomHeartRateZones() {
-        return customHeartRateZones;
     }
 
     public List<HeartRateZone> getHeartRateZones() {

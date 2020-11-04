@@ -15,21 +15,21 @@ public class FitbitHeartService implements HeartService {
 
     private final MeasurementDao measurementDao;
 
-    private final ProfileDao profileDao;
+    private final UserDao userDao;
 
     private final DeviceDao deviceDao;
 
-    public FitbitHeartService(MeasurementDao measurementDao, ProfileDao profileDao, DeviceDao deviceDao) {
+    public FitbitHeartService(MeasurementDao measurementDao, UserDao userDao, DeviceDao deviceDao) {
         this.measurementDao = measurementDao;
-        this.profileDao = profileDao;
+        this.userDao = userDao;
         this.deviceDao = deviceDao;
     }
 
     @Override
     public Mono<ServerResponse> getUserActivities(ServerRequest request) {
         var heartList = measurementDao.getActivitiesHeartList(heartListRequest(request));
-        var deviceList = deviceDao.getDeviceList();
-        var profile = profileDao.getProfile();
+        var deviceList = deviceDao.getDevice();
+        var profile = userDao.getUser();
 
         return Mono.zip(profile, heartList, deviceList)
                 .flatMap(data -> Mono.just(new UserActivities(data.getT1(), data.getT2(), data.getT3())))

@@ -19,7 +19,9 @@ public class SampleDataLoaderTest {
     @Test
     public void loadActivitiesHeartList() throws Exception {
         URL resource = SampleDataLoaderTest.class.getResource("/sample/heart-rate-time-series.json");
-        ActivitiesHeartList heartList = new ObjectMapper().readValue(resource, ActivitiesHeartList.class);
+        ActivitiesHeartList heartList = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .readValue(resource, ActivitiesHeartList.class);
         assertNotNull(heartList);
         assertEquals(3, heartList.getActivitiesHeart().size());
     }
@@ -49,7 +51,9 @@ public class SampleDataLoaderTest {
     @Test
     public void loadActivitiesHearRateIntradaytList() throws Exception {
         URL resource = SampleDataLoaderTest.class.getResource("/sample/heart-rate-intraday.json");
-        ActivitiesIntradayHeartList heartList = new ObjectMapper().readValue(resource, ActivitiesIntradayHeartList.class);
+        ActivitiesIntradayHeartList heartList = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .readValue(resource, ActivitiesIntradayHeartList.class);
         assertNotNull(heartList);
         assertFalse(heartList.getActivitiesHeart().isEmpty());
         assertFalse(heartList.getActivitiesHeartRateIntradayDataset().getDataset().isEmpty());

@@ -1,34 +1,34 @@
 package io.myhealth.fitbit.api;
 
 import com.fitbit.api.device.Device;
-import com.fitbit.api.heart.ActivitiesHeartList;
-import com.fitbit.api.profile.Profile;
+import com.fitbit.api.heart.ActivitiesHeart;
+import com.fitbit.api.profile.User;
 
 import java.util.List;
 
 public class UserActivities {
 
-    private final Profile profile;
+    private final User user;
 
-    private final ActivitiesHeartList activitiesHeartList;
+    private final List<ActivitiesHeart> activitiesHeartList;
 
-    private final List<Device> deviceList;
+    private final Device device;
 
-    public UserActivities(Profile profile, ActivitiesHeartList activitiesHeartList, List<Device> deviceList) {
-        this.profile = profile;
+    public UserActivities(User user, List<ActivitiesHeart> activitiesHeartList, Device device) {
+        this.user = user;
         this.activitiesHeartList = activitiesHeartList;
-        this.deviceList = deviceList;
+        this.device = device;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public User getUser() {
+        return user;
     }
 
-    public ActivitiesHeartList getActivitiesHeartList() {
+    public List<ActivitiesHeart> getActivitiesHeartList() {
         return activitiesHeartList;
     }
 
-    public List<Device> getDeviceList() {
-        return deviceList;
+    public Device getDevice() {
+        return device;
     }
 }

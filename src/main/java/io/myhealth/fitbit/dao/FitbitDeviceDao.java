@@ -2,6 +2,7 @@ package io.myhealth.fitbit.dao;
 
 import com.fitbit.api.device.Device;
 import io.myhealth.fitbit.api.FitbitException;
+import io.myhealth.fitbit.transform.DeviceTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,11 @@ public class FitbitDeviceDao implements DeviceDao {
     public FitbitDeviceDao(@Value("${myhealth.fitbit.baseUri}") String uri, TokenDao tokenDao) {
         this.tokenDao = tokenDao;
         this.webClient = WebClient.create(uri);
+    }
+
+    @Override
+    public Mono<Device> getDevice() {
+        return getDeviceList().transform(new DeviceTransformer());
     }
 
     @Override

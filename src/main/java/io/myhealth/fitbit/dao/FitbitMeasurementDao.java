@@ -1,8 +1,10 @@
 package io.myhealth.fitbit.dao;
 
+import com.fitbit.api.heart.ActivitiesHeart;
 import com.fitbit.api.heart.ActivitiesHeartList;
 import com.fitbit.api.heart.ActivitiesIntradayHeartList;
 import io.myhealth.fitbit.api.FitbitException;
+import io.myhealth.fitbit.transform.ActivitiesHeartListTransformer;
 import io.myhealth.fitbit.transform.DateTimeTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 @Component
 public class FitbitMeasurementDao implements MeasurementDao {
@@ -29,7 +32,7 @@ public class FitbitMeasurementDao implements MeasurementDao {
     }
 
     @Override
-    public Mono<ActivitiesHeartList> getActivitiesHeartList(FitbitHeartListRequest request) {
+    public Mono<List<ActivitiesHeart>> getActivitiesHeartList(FitbitHeartListRequest request) {
         return tokenDao.getAccessToken()
             .flatMap(rt -> webClient
                 .get()
@@ -40,7 +43,7 @@ public class FitbitMeasurementDao implements MeasurementDao {
                 .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new FitbitException("Fitbit server error during heart list fetch")))
                 .bodyToMono(ActivitiesHeartList.class)
                 .doOnSuccess(t -> log.info("Activities heart list fetched from {} to {}", request.getFrom(), request.getTo()))
-                .doOnError(e -> log.error("Error during the heart list fetch", e)));
+                .doOnError(e -> log.error("Error during the heart list fetch", e))).transform(new ActivitiesHeartListTransformer());
     }
 
     @Override
