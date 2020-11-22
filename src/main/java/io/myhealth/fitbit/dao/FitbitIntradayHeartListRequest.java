@@ -1,7 +1,6 @@
 package io.myhealth.fitbit.dao;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class FitbitIntradayHeartListRequest {
 
@@ -11,17 +10,9 @@ public class FitbitIntradayHeartListRequest {
     /** Number of data points to include. Either 1sec or 1min */
     private final String detailLevel;
 
-    /** The start of the period, in the format HH:mm. Optional. */
-    private final LocalTime startTime;
-
-    /** The end of the period, in the format HH:mm. Optional. */
-    private final LocalTime endTime;
-
-    public FitbitIntradayHeartListRequest(LocalDate date, String detailLevel, LocalTime startTime, LocalTime endTime) {
+    public FitbitIntradayHeartListRequest(LocalDate date, String detailLevel) {
         this.date = date;
         this.detailLevel = detailLevel;
-        this.startTime = startTime;
-        this.endTime = endTime;
     }
 
     public LocalDate getDate() {
@@ -30,13 +21,5 @@ public class FitbitIntradayHeartListRequest {
 
     public String getDetailLevel() {
         return detailLevel;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
     }
 }

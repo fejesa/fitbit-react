@@ -15,6 +15,7 @@ public class RouterConfig {
     RouterFunction<ServerResponse> routes(FitbitHeartService heartHandler) {
         return route()
                 .GET("/activities", heartHandler::getUserActivities)
+                .GET("/detailed-activities", heartHandler::getUserIntradayActivities)
                 .build();
     }
 }

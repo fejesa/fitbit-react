@@ -43,7 +43,8 @@ public class FitbitMeasurementDao implements MeasurementDao {
                 .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new FitbitException("Fitbit server error during heart list fetch")))
                 .bodyToMono(ActivitiesHeartList.class)
                 .doOnSuccess(t -> log.info("Activities heart list fetched from {} to {}", request.getFrom(), request.getTo()))
-                .doOnError(e -> log.error("Error during the heart list fetch", e))).transform(new ActivitiesHeartListTransformer());
+                .doOnError(e -> log.error("Error during the heart list fetch", e)))
+                .transform(new ActivitiesHeartListTransformer());
     }
 
     @Override
@@ -73,10 +74,6 @@ public class FitbitMeasurementDao implements MeasurementDao {
         return "/user/-/activities/heart/date/" + DateTimeTransformer.fromDate(request.getDate()) +
                 "/1d/" +
                 request.getDetailLevel() +
-                "/time/" +
-                DateTimeTransformer.formatTime(request.getStartTime()) +
-                "/" +
-                DateTimeTransformer.formatTime(request.getEndTime()) +
                 ".json";
     }
 }

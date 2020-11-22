@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class HeartRateZone {
 
-    private final int caloriesOut;
+    private final double caloriesOut;
 
     private final int max;
 
@@ -16,7 +16,7 @@ public class HeartRateZone {
     private final String name;
 
     @JsonCreator
-    public HeartRateZone(@JsonProperty("caloriesOut") int caloriesOut, @JsonProperty("max") int max,
+    public HeartRateZone(@JsonProperty("caloriesOut") double caloriesOut, @JsonProperty("max") int max,
                          @JsonProperty("min") int min, @JsonProperty("minutes") int minutes, @JsonProperty("name") String name) {
         this.caloriesOut = caloriesOut;
         this.max = max;
@@ -25,7 +25,7 @@ public class HeartRateZone {
         this.name = name;
     }
 
-    public int getCaloriesOut() {
+    public double getCaloriesOut() {
         return caloriesOut;
     }
 

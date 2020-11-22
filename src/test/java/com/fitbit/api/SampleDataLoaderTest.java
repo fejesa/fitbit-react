@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitbit.api.device.Device;
+import com.fitbit.api.heart.ActivitiesIntradayHeart;
 import com.fitbit.api.heart.ActivitiesIntradayHeartList;
 import com.fitbit.api.heart.ActivitiesHeartList;
 import com.fitbit.api.profile.Profile;

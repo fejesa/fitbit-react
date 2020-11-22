@@ -39,8 +39,9 @@ public class FitbitHeartService implements HeartService {
 
     @Override
     public Mono<ServerResponse> getUserIntradayActivities(ServerRequest request) {
-        // TODO
-        return null;
+        return measurementDao.getActivitiesIntradayHeartList(intradayHeartListRequest(request))
+                .flatMap(ServerResponse.ok()::bodyValue)
+                .switchIfEmpty(ServerResponse.badRequest().build());
     }
 
     private FitbitHeartListRequest heartListRequest(ServerRequest request) {
@@ -55,7 +56,9 @@ public class FitbitHeartService implements HeartService {
     }
 
     private FitbitIntradayHeartListRequest intradayHeartListRequest(ServerRequest request) {
-        // TODO
-        return null;
+        var date = request.queryParam("date")
+                .map(DateTimeTransformer::fromString)
+                .orElseGet(() -> LocalDate.now());
+        return new FitbitIntradayHeartListRequest(date, "1min");
     }
 }
