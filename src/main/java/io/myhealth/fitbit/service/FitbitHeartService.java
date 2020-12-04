@@ -1,6 +1,7 @@
 package io.myhealth.fitbit.service;
 
 import io.myhealth.fitbit.api.UserActivities;
+import io.myhealth.fitbit.api.UserIntradayActivities;
 import io.myhealth.fitbit.dao.*;
 import io.myhealth.fitbit.transform.DateTimeTransformer;
 import org.springframework.stereotype.Component;
@@ -39,7 +40,10 @@ public class FitbitHeartService implements HeartService {
 
     @Override
     public Mono<ServerResponse> getUserIntradayActivities(ServerRequest request) {
-        return measurementDao.getActivitiesIntradayHeartList(intradayHeartListRequest(request))
+        var profile = userDao.getUser();
+        var heartList = measurementDao.getActivitiesIntradayHeartList(intradayHeartListRequest(request));
+        return Mono.zip(profile, heartList)
+                .flatMap(data -> Mono.just(new UserIntradayActivities(data.getT1(), data.getT2().getActivitiesHeart(), data.getT2().getActivitiesHeartRateIntradayDataset())))
                 .flatMap(ServerResponse.ok()::bodyValue)
                 .switchIfEmpty(ServerResponse.badRequest().build());
     }

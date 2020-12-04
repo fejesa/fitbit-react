@@ -1,34 +1,39 @@
 package io.myhealth.fitbit.api;
 
-import com.fitbit.api.device.Device;
-import com.fitbit.api.heart.ActivitiesIntradayHeartList;
-import com.fitbit.api.profile.Profile;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fitbit.api.heart.ActivitiesIntradayHeart;
+import com.fitbit.api.heart.ActivitiesIntradayHeartRateDataset;
+import com.fitbit.api.profile.User;
 
 import java.util.List;
 
 public class UserIntradayActivities {
 
-    private final Profile profile;
+    private final User user;
 
-    private final List<Device> deviceList;
+    private final List<ActivitiesIntradayHeart> activities;
 
-    private final ActivitiesIntradayHeartList activitiesIntradayHeartList;
+    private final ActivitiesIntradayHeartRateDataset activitiesDataset;
 
-    public UserIntradayActivities(Profile profile, List<Device> deviceList, ActivitiesIntradayHeartList activitiesIntradayHeartList) {
-        this.profile = profile;
-        this.deviceList = deviceList;
-        this.activitiesIntradayHeartList = activitiesIntradayHeartList;
+    @JsonCreator
+    public UserIntradayActivities(@JsonProperty("user") User user,
+                                  @JsonProperty("activities") List<ActivitiesIntradayHeart> activities,
+                                  @JsonProperty("dataset") ActivitiesIntradayHeartRateDataset activitiesDataset) {
+        this.user = user;
+        this.activities = activities;
+        this.activitiesDataset = activitiesDataset;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public User getUser() {
+        return user;
     }
 
-    public List<Device> getDeviceList() {
-        return deviceList;
+    public List<ActivitiesIntradayHeart> getActivities() {
+        return activities;
     }
 
-    public ActivitiesIntradayHeartList getActivitiesIntradayHeartList() {
-        return activitiesIntradayHeartList;
+    public ActivitiesIntradayHeartRateDataset getActivitiesDataset() {
+        return activitiesDataset;
     }
 }
