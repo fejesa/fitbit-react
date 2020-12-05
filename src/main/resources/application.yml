@@ -1,0 +1,13 @@
+server:
+    port: 8081
+myhealth:
+    fitbit:
+        baseUri: https://api.fitbit.com/1
+        tokenFile: file:/<your_fitbit_token_json_path>
+
+fitbit:
+    api:
+        tokenHost: https://api.fitbit.com
+        clientId: <your client id>
+        clientSecret: <your client secret>
+        redirectUri: https://example.com/auth
